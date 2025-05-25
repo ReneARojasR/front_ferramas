@@ -1,0 +1,35 @@
+<p>productos works!</p>
+<h2>Lista de productos</h2>
+
+<!-- <ul *ngIf="products.length > 0">
+  <li *ngFor="let producto of products">
+    {{ producto.nombre }} - {{ producto.precio }}
+  </li>
+</ul> -->
+
+<ng-template #loading>
+  <p>Cargando productos...</p>
+</ng-template>
+
+
+<mat-card class="example-card" *ngFor="let producto of products">
+  <mat-card-header>
+    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+    <mat-card-title> {{ producto.nombre }} </mat-card-title>
+    <!-- <mat-card-subtitle></mat-card-subtitle> -->
+  </mat-card-header>
+  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+   <!-- <img mat-card-image src="https://th.bing.com/th/id/OIP.zgJMoQYmjqiPsZMdz3XJrAHaHa?cb=iwp2&rs=1&pid=ImgDetMain" alt="Photo of a Shiba Inu"> -->
+    <img mat-card-image [src]=" producto.imagen " alt="Photo of a Shiba Inu">
+
+  <mat-card-content>
+    <h1>{{ producto.precio }}</h1>
+    <p>
+      {{ producto.descripcion }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
