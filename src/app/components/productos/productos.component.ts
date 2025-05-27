@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 
 import { Product } from '../../models/product.model';
 import { MatCardModule } from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, MatCardModule ],
+  imports: [CommonModule, MatCardModule, MatButton ],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })

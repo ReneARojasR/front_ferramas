@@ -9,13 +9,10 @@ import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProductosComponent, MatButtonModule, RouterLink],
+  imports: [RouterOutlet, MatButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'front_ferramas';
-
-
-
+  title = 'ferramas';
 }

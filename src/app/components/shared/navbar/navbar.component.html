@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" >
+  <nav class="navbar">
+        <a class="navbar-brand" routerLink="/principal">
+          <img src="https://i.imgur.com/qdyPa4J.png" alt="Logo" class="logo">
+        </a>
+        <div class="navbar-user" style="margin-left: auto;">
+
+      <span *ngIf="usuarioNombre">Bienvenido, {{ usuarioNombre }}</span>
+      <button mat-button class="btn-white" *ngIf="usuarioNombre" (click)="logout()" >Cerrar sesión</button>
+      <button mat-button class="btn-white" *ngIf="!usuarioNombre" (click)="goToLogin()" >Login</button>
+      <button mat-icon-button aria-label="User">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </nav>
+
+</mat-toolbar>

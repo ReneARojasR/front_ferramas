@@ -1,0 +1,24 @@
+mat-toolbar {
+  background-color: #11214F !important;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 16px; /* Espaciado horizontal estándar */
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.btn-white {
+  color: white !important;
+}
