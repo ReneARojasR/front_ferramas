@@ -4,6 +4,12 @@
           <img src="https://i.imgur.com/qdyPa4J.png" alt="Logo" class="logo">
         </a>
         <div class="navbar-user" style="margin-left: auto;">
+          <button (click)="toggleCarrito()">🛒 Carrito ({{ totalItems }})</button>
+
+          <!-- Carrito flotante -->
+          <div class="carrito-dropdown" *ngIf="mostrarCarrito">
+            <app-carrito></app-carrito>
+          </div>
 
       <span *ngIf="usuarioNombre">Bienvenido, {{ usuarioNombre }}</span>
       <button mat-button class="btn-white" *ngIf="usuarioNombre" (click)="logout()" >Cerrar sesión</button>

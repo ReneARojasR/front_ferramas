@@ -1,0 +1,37 @@
+.carrito-container {
+  padding: 1rem;
+  max-width: 400px;
+  background: #f5f5f5; /* fondo gris claro */
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  color: #11214f; /* color del texto */
+  font-family: Arial, sans-serif; /* opcional para mejor legibilidad */
+}
+
+.carrito-item {
+  display: flex;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+}
+
+.item-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.item-info {
+  flex-grow: 1;
+}
+
+.item-info h4,
+.item-info p {
+  margin: 0;
+  color: #11214f; /* asegura que los textos internos también usen ese color */
+}
+
+.acciones-carrito button {
+  margin-right: 8px;
+}

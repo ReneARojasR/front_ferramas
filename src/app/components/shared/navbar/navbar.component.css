@@ -22,3 +22,10 @@ nav {
 .btn-white {
   color: white !important;
 }
+
+.carrito-dropdown {
+  position: absolute;
+  top: 80px; /* ajusta según el alto del navbar */
+  right: 20px;
+  z-index: 1000;
+}

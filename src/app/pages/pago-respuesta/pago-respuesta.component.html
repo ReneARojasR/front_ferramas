@@ -1,0 +1,4 @@
+<div *ngIf="respuesta && respuesta.status">
+  <h2>Pago {{ respuesta.status === 'AUTHORIZED' ? 'exitoso ✅' : 'fallido ❌' }}</h2>
+  <pre>{{ respuesta | json }}</pre>
+</div>
