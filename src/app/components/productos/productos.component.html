@@ -1,4 +1,4 @@
-<div *ngIf="!products; else listaProductos">
+<div *ngIf="products.length === 0; else listaProductos">
   <p>Cargando productos...</p>
 </div>
 
@@ -6,9 +6,11 @@
   <mat-label>Tipo de producto</mat-label>
   <mat-select [(value)]="selectedTipo">
     <mat-option [value]="null">Todos</mat-option>
-    <mat-option *ngFor="let tipo of tiposUnicos" [value]="tipo">
-      {{ tipoLabels[tipo] || tipo }}
+    <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">
+      {{ tipo.nombre }}
     </mat-option>
+
+
   </mat-select>
 </mat-form-field>
 
@@ -20,16 +22,17 @@
         <mat-card-title>{{ producto.nombre }}</mat-card-title>
       </mat-card-header>
 
-      <img mat-card-image [src]="producto.imagen" alt="{{ producto.nombre }}" class="producto-imagen">
+      <!-- <img mat-card-image [src]="producto.imagen" alt="{{ producto.nombre }}" class="producto-imagen"> -->
+      <img mat-card-image [src]="'http://localhost:5000' + producto.imagen" alt="{{ producto.nombre }}" class="producto-imagen">
 
       <mat-card-content>
-        <h2 class="precio">{{ producto.precio | currency:'CLP':'symbol':'1.0-0' }}</h2>
+        <h2 class="precio"> $ {{ producto.precio | number:'1.0-0' }}</h2>
         <p>{{ producto.descripcion }}</p>
       </mat-card-content>
 
-      <mat-card-actions>
-        <button mat-button color="primary" (click)="agregarAlCarrito(producto)">Agregar a carrito</button>
-      </mat-card-actions>
+      <button mat-raised-button color="primary" (click)="agregarAlCarrito(producto)">
+      Agregar al carrito
+    </button>
     </mat-card>
   </div>
 </ng-template>

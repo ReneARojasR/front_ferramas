@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CartItem } from '../../../models/cart-item.model';
+import { CartItem } from '../../../interfaces/cart-item.interface';
 import { CarritoService } from '../../../services/carrito.service';
 
 import { Router } from '@angular/router';
+
+
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-carrito',
@@ -16,7 +20,12 @@ import { Router } from '@angular/router';
 export class CarritoComponent {
   carrito: CartItem[] = [];
 
-  constructor(private carritoService: CarritoService, private router: Router) {}
+
+  constructor(
+    private carritoService: CarritoService,
+    private router: Router,
+    private http: HttpClient // Inyecta HttpClient
+  ) { }
 
   ngOnInit() {
     this.carritoService.carrito$.subscribe(items => {
@@ -37,6 +46,44 @@ export class CarritoComponent {
   }
 
   irAlPago() {
-    this.router.navigate(['/pago-iniciar'], );
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    if (!user || !user.id) {
+      alert('Debes iniciar sesión para realizar la compra');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const total = this.getTotal();
+    if (total <= 0) {
+      alert('El total debe ser mayor a $0');
+      return;
+    }
+
+    const orden = {
+      userId: user.id,
+      items: this.carrito.map(item => ({
+        productId: item.product.id,
+        quantity: item.quantity
+      })),
+      total
+    };
+
+    this.http.post<{ url_pago: string, token: string }>('http://localhost:5000/crear_orden', orden).subscribe({
+      next: (response) => {
+        if (response.url_pago) {
+          // Redirigir a la url de pago de Webpay
+          window.location.href = response.url_pago;
+        } else {
+          alert('Orden creada, pero no se pudo iniciar el pago');
+        }
+      },
+      error: err => {
+        console.error('Error al crear la orden:', err);
+        alert('Ocurrió un error al procesar tu compra. Inténtalo nuevamente.');
+      }
+    });
   }
+
+
 }

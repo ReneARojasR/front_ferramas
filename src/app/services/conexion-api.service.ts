@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConexionApiService {
 
-  httpOptiosns = {
-    headers: new HttpHeaders({'content-type': 'application/json','access-control-allow-origin':'*'})
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
   };
 
-  url: string = 'http://localhost:5000/';
-  constructor(private http:HttpClient) { }
+  private url = 'http://localhost:5000/';
 
-  public gerAllPRoducts(): Observable<any> {
-    return this.http.get(this.url + 'products',this.httpOptiosns);
+  constructor(private http: HttpClient) {}
+
+  public getAllProducts(): Observable<any> {
+    return this.http.get(this.url + 'products', this.httpOptions);
   }
+
   public getProductById(id: number): Observable<any> {
-    return this.http.get(this.url + 'products/' + id);
+    return this.http.get(this.url + 'products/' + id, this.httpOptions);
+  }
+
+  public getTiposProducto(): Observable<{ id: number; nombre: string }[]> {
+    return this.http.get<{ id: number; nombre: string }[]>(this.url + 'api/tipos-producto', this.httpOptions);
   }
 }

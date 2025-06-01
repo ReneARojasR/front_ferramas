@@ -54,3 +54,7 @@
     grid-template-columns: repeat(1, 250px);
   }
 }
+
+.moneda {
+  margin-right: 0.2em; /* o el espacio que necesites */
+}

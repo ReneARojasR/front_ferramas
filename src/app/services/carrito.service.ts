@@ -1,38 +1,37 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CartItem } from '../models/cart-item.model';
-import { Product } from '../models/product.model';
+import { CartItem } from '../interfaces/cart-item.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
-  private carrito: CartItem[] = [];
   private carritoSubject = new BehaviorSubject<CartItem[]>([]);
-
   carrito$ = this.carritoSubject.asObservable();
 
-  agregarAlCarrito(product: Product): void {
-    const index = this.carrito.findIndex(item => item.product.id === product.id);
-    if (index !== -1) {
-      this.carrito[index].quantity++;
+  private carrito: CartItem[] = [];
+
+  agregarAlCarrito(item: CartItem) {
+    const index = this.carrito.findIndex(ci => ci.product.id === item.product.id);
+    if (index > -1) {
+      this.carrito[index].quantity += item.quantity;
     } else {
-      this.carrito.push({ product, quantity: 1 });
+      this.carrito.push(item);
     }
     this.carritoSubject.next(this.carrito);
   }
 
-  eliminarDelCarrito(productId: number): void {
-    this.carrito = this.carrito.filter(item => item.product.id !== productId);
+  eliminarDelCarrito(id: number) {
+    this.carrito = this.carrito.filter(item => item.product.id !== id);
     this.carritoSubject.next(this.carrito);
   }
 
-  limpiarCarrito(): void {
+  limpiarCarrito() {
     this.carrito = [];
     this.carritoSubject.next(this.carrito);
   }
 
-  obtenerCarrito(): CartItem[] {
-    return [...this.carrito];
+  getCarritoActual(): CartItem[] {
+    return this.carrito;
   }
 }

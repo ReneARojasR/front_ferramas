@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { CarritoService } from '../../services/carrito.service';
-import { CartItem } from '../../models/cart-item.model';
+import { CartItem } from '../../interfaces/cart-item.interface';
 
 declare var MercadoPago: any;
 
