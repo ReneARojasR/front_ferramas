@@ -11,11 +11,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
 
-    email: string = '';
+  email: string = '';
   password: string = '';
   message: string = '';
 
-  constructor(private authService: AutenticarLoginService, private router: Router) {}
+  constructor(private authService: AutenticarLoginService, private router: Router) { }
 
   onLogin(): void {
     if (!this.email || !this.password) {
@@ -24,18 +24,15 @@ export class LoginComponent {
     }
 
     this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
-        console.log('Usuario autenticado:', response.user);
-        localStorage.setItem('user', JSON.stringify(response.user)); // temporal
+      next: () => {
         this.router.navigate(['/principal']);
       },
       error: (err) => {
-        console.warn(err);
         this.message = 'Credenciales incorrectas.';
       }
     });
-  }
 
+  }
 
   loginSuccess() {
     this.router.navigate(['/productos']);

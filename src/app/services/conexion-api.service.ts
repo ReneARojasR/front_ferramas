@@ -28,4 +28,8 @@ export class ConexionApiService {
   public getTiposProducto(): Observable<{ id: number; nombre: string }[]> {
     return this.http.get<{ id: number; nombre: string }[]>(this.url + 'api/tipos-producto', this.httpOptions);
   }
+
+  getDescuentoUsuario(usuarioId: number) {
+    return this.http.get<{ porcentaje: number }>(`http://localhost:5000/descuentos/${usuarioId}`);
+  }
 }

@@ -7,18 +7,44 @@
     <img [src]="item.product.imagen" alt="{{ item.product.nombre }}" class="item-img">
     <div class="item-info">
       <h4>{{ item.product.nombre }}</h4>
-      <p>Precio: {{ item.product.precio| currency:'CLP' }}</p>
+      <p>Precio:
+        <span *ngIf="descuentoUsuario > 0; else precioNormal" style="color:#4caf50; font-weight:bold;">
+          <ng-container *ngIf="moneda === 'USD'; else clpDesc">
+            {{ precioConDescuento(item.product.precio) | number:'1.2-2' }} USD
+          </ng-container>
+          <ng-template #clpDesc>
+            {{ precioConDescuento(item.product.precio) | currency:'CLP' }}
+          </ng-template>
+        </span>
+
+        <ng-template #precioNormal>
+          <ng-container *ngIf="moneda === 'USD'; else clpNormal">
+            {{ item.product.precio / valorDolar | number:'1.2-2' }} USD
+          </ng-container>
+          <ng-template #clpNormal>
+            {{ item.product.precio | currency:'CLP' }}
+          </ng-template>
+        </ng-template>
+      </p>
       <p>Cantidad: {{ item.quantity }}</p>
       <button mat-button color="warn" (click)="eliminarItem(item.product.id)">Eliminar</button>
     </div>
   </div>
 
   <hr>
-  <h3>Total: {{ getTotal() | currency:'CLP' }}</h3>
+
+  <h3>Total:
+    <ng-container *ngIf="moneda === 'USD'; else totalCLP">
+      {{ getTotal() | number:'1.2-2' }} USD
+    </ng-container>
+    <ng-template #totalCLP>
+      {{ getTotal() | currency:'CLP' }}
+    </ng-template>
+  </h3>
 
   <div class="acciones-carrito">
     <button mat-raised-button color="warn" (click)="limpiarCarrito()">Vaciar Carrito</button>
     <button mat-raised-button color="primary" (click)="irAlPago()">Proceder al pago</button>
-<!-- futuro -->
+    <!-- futuro -->
   </div>
 </div>

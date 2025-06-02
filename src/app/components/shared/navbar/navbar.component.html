@@ -3,6 +3,12 @@
         <a class="navbar-brand" routerLink="/principal">
           <img src="https://i.imgur.com/qdyPa4J.png" alt="Logo" class="logo">
         </a>
+        <div style="margin-left: 16px;">
+          <mat-button-toggle-group [(ngModel)]="monedaSeleccionada" (change)="cambiarMoneda($event.value)" aria-label="Selector moneda">
+            <mat-button-toggle value="CLP">CLP</mat-button-toggle>
+            <mat-button-toggle value="USD">USD</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
         <div class="navbar-user" style="margin-left: auto;">
           <button (click)="toggleCarrito()">🛒 Carrito ({{ totalItems }})</button>
 

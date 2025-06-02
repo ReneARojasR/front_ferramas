@@ -58,3 +58,25 @@
 .moneda {
   margin-right: 0.2em; /* o el espacio que necesites */
 }
+
+
+.precio-descuento {
+  color: #4caf50; /* verde */
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.precio-original {
+  text-decoration: line-through;
+  color: #bbb;
+  margin: 0;
+}
+
+.badge-descuento {
+  color: #ffca28; /* amarillo dorado */
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+

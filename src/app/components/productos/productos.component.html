@@ -15,6 +15,7 @@
 </mat-form-field>
 
 <ng-template #listaProductos>
+
   <div *ngIf="filteredProducts.length > 0; else sinProductos" class="products-grid">
 
     <mat-card class="example-card" *ngFor="let producto of filteredProducts">
@@ -22,19 +23,55 @@
         <mat-card-title>{{ producto.nombre }}</mat-card-title>
       </mat-card-header>
 
-      <!-- <img mat-card-image [src]="producto.imagen" alt="{{ producto.nombre }}" class="producto-imagen"> -->
-      <img mat-card-image [src]="'http://localhost:5000' + producto.imagen" alt="{{ producto.nombre }}" class="producto-imagen">
+      <img mat-card-image [src]="'http://localhost:5000/static/img/' + producto.imagen.split('/').pop()"
+        alt="{{ producto.nombre }}" class="producto-imagen">
 
       <mat-card-content>
-        <h2 class="precio"> $ {{ producto.precio | number:'1.0-0' }}</h2>
+        <div *ngIf="descuentoUsuario > 0; else precioNormal">
+          <h3 style="color: #ffca28; margin: 0;">
+            🔥 {{ descuentoUsuario | number:'1.0-0' }}% DCTO
+          </h3>
+          <h4 style="text-decoration: line-through; color: #bbb; margin: 0;">
+            <ng-container *ngIf="moneda === 'USD'; else clpAntes">
+              {{ producto.precio / valorDolar | number:'1.2-2' }} USD
+            </ng-container>
+            <ng-template #clpAntes>
+              $ {{ producto.precio | number:'1.0-0' }}
+            </ng-template>
+          </h4>
+
+          <h2 class="precio" style="color: #4caf50;">
+            <ng-container *ngIf="moneda === 'USD'; else clpDescuento">
+              {{ precioConDescuento(producto.precio) | number:'1.2-2' }} USD
+            </ng-container>
+            <ng-template #clpDescuento>
+              $ {{ precioConDescuento(producto.precio) | number:'1.0-0' }}
+            </ng-template>
+          </h2>
+        </div>
+        <ng-template #precioNormal>
+          <h2 class="precio">
+            <ng-container *ngIf="moneda === 'USD'; else clpPrecio">
+              {{ producto.precio / valorDolar | number:'1.2-2' }} USD
+            </ng-container>
+            <ng-template #clpPrecio>
+              $ {{ producto.precio | number:'1.0-0' }}
+            </ng-template>
+          </h2>
+        </ng-template>
+
         <p>{{ producto.descripcion }}</p>
       </mat-card-content>
 
       <button mat-raised-button color="primary" (click)="agregarAlCarrito(producto)">
-      Agregar al carrito
-    </button>
+        Agregar al carrito
+      </button>
     </mat-card>
+
+
   </div>
+
+
 </ng-template>
 
 <ng-template #sinProductos>

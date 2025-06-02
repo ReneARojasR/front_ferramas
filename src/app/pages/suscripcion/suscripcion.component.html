@@ -1,0 +1,12 @@
+<!-- En tu template principal, justo después del header o en body -->
+
+<div *ngIf="mostrarModalSuscripcion" class="modal-suscripcion">
+  <div class="modal-content">
+    <button class="cerrar" (click)="cerrarModal()">X</button>
+    <p>¿Quieres subscribirte a nuestros planes?</p>
+    <div class="botones">
+      <button (click)="irASuscripcion()">Sí</button>
+      <button (click)="cerrarModal()">No</button>
+    </div>
+  </div>
+</div>
